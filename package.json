@@ -10,5 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "lodash": "^2.4.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.6",
+    "gulp-concat": "^2.3.4"
   }
 }
