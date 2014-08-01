@@ -19,11 +19,15 @@ gulp.task('toJson', function() {
 })
 
 gulp.task('watch', function() {
-    gulp.watch('./*.ts')
+    gulp.watch('./genderguess.ts', ['build'])
 })
 
 gulp.task('build', function() {
-    gulp.src(['*.ts'])
-    .pipe(typescript())
+    var typescriptOptions = {
+        emitError: false,
+        module: 'commonjs',
+    }
+    gulp.src(['./*.ts'])
+    .pipe(typescript(typescriptOptions))
     .pipe(gulp.dest('./'))
 })

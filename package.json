@@ -18,6 +18,7 @@
     "gulp-csv2json": "^0.1.4",
     "gulp-rename": "^1.2.0",
     "gulp-tsc": "^0.9.2",
-    "gulp-watch": "^0.6.9"
+    "gulp-watch": "^0.6.9",
+    "typescript": "^1.0.1"
   }
 }
