@@ -2,6 +2,8 @@ var _ = require('lodash')
 
 function genderGuess(nameToGender) {
 
+    console.log('hello!')
+
     var femaleNames = [
         {name: 'Ashleigh', gender: 'F', births: '200'},
         {name: 'Lee', gender: 'F', births: '200'},
