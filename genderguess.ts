@@ -3,19 +3,14 @@
 /// <reference path="./types/types.ts" />
 
 import _ = require('lodash')
+import females = require('./names/final_names/finalFemaleNames')
+import males = require('./names/final_names/finalMaleNames')
 
 export function guess(nameToGender:string):NameData {
+    console.log('nameToGender',nameToGender)
 
-    var femaleNames:NameData[] = [
-        {name: 'Ashleigh', gender: 'F', births: 200},
-        {name: 'Lee', gender: 'F', births: 200},
-        {name: 'Mary', gender: 'F', births: 1000}
-    ]
-
-    var maleNames:NameData[] = [
-        {name: 'Ashleigh', gender: 'M', births: 250},
-        {name: 'Lee', gender: 'M', births: 150},
-    ]
+    var femaleNames:NameData[] = females.names
+    var maleNames:NameData[] = males.names
 
     var nullGender:NameData = {name: null, gender: null, confidence: null}
 
@@ -24,6 +19,8 @@ export function guess(nameToGender:string):NameData {
     function genderMatch(nameToGender:string, maleNames:NameData[], femaleNames:NameData[]):NameData {
         var maleMatch = lookUpMatch(nameToGender, maleNames)
         var femaleMatch = lookUpMatch(nameToGender, femaleNames)
+        console.log('maleMatch',maleMatch)
+        console.log('femaleMatch',femaleMatch)
         if (!maleMatch && !femaleMatch) return nullGender // If cannot find, return null dataset
         if (!maleMatch) return formatWinner(femaleMatch, null)
         if (!femaleMatch) return formatWinner(maleMatch, null)
@@ -33,21 +30,23 @@ export function guess(nameToGender:string):NameData {
 
     function lookUpMatch(nameToGender:string, names:NameData[]):NameData {
         return _.find(names, function(name) {
-            return name.name == nameToGender
+            return name.name.toLowerCase() == nameToGender.toLowerCase()
         })
     }
 
     function determineWinner(match1:NameData, match2:NameData):WinnerLoser {
         var winnerLoser:WinnerLoser = {
-            winner: (match1.births > match2.births) ? match1 : match2,
-            loser: (match1.births > match2.births) ? match2 : match1,
+            winner: (Number(match1.births) > Number(match2.births)) ? match1 : match2,
+            loser: (Number(match1.births) > Number(match2.births)) ? match2 : match1,
         }
         return winnerLoser
     }
 
     function formatWinner(winner:NameData, loser:NameData):NameData {
+        winner = _.clone(winner)
+        loser = _.clone(loser)
         if (!loser) winner.confidence = 0.999 // Because it feels weird to return a confidence of 100% :)
-        else winner.confidence = Math.round(winner.births / (winner.births + loser.births)*10000)/10000
+        else winner.confidence = Math.round(Number(winner.births) / (Number(winner.births) + Number(loser.births))*10000)/10000
         delete winner.births            
         return winner
     }

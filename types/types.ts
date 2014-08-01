@@ -1,7 +1,7 @@
 interface NameData {
     name: string;
     gender: string;
-    births?: number;
+    births?: string;
     confidence?: number;
 }
 
