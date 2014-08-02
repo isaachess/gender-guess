@@ -1,6 +1,6 @@
 {
   "name": "gender-guess",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Guess the gender of a name based on all US Social Security data from 1930 - 2013",
   "repository": {
     "type": "git",

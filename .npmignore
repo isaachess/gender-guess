@@ -3,3 +3,4 @@ node_modules
 names/years_unused
 names/years_used
 names/r
+npm-debug.log
