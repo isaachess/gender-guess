@@ -2,6 +2,8 @@
 
 Determine a person's gender based on a name. To determine if it is more likely male or female, it compares the name against the top 10,000 male and 10,000 female names from all US births 1930 - 2013. Data from the social security administration, so it works best for US names.
 
+(If you want to make your own custom build of the names dataset, instructions to do this can be found in `BuildData.md`.)
+
 # Installation
 
     npm install gender-guess
@@ -10,7 +12,7 @@ Determine a person's gender based on a name. To determine if it is more likely m
 
     var gender = require('gender-guess')
 
-    gender.guess(name, options)
+    gender.guess(name)
 
 # Examples
 
