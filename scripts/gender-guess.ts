@@ -8,29 +8,29 @@ import males = require('../names/final_names/finalMaleNames')
 
 export function guess(nameToGender:string):NameData {
 
-    var femaleNames:NameData[] = females.names
-    var maleNames:NameData[] = males.names
-
-    var nullGender:NameData = {name: null, gender: null, confidence: null}
-
     if (!nameToGender) return nullGender
 
-    return genderMatch(nameToGender, maleNames, femaleNames)
+    var femaleNames:NameData[] = females.names
+    var maleNames:NameData[] = males.names
+    var nullGender:NameData = {name: null, gender: null, confidence: null}  
+    var firstName = nameToGender.split(' ').slice(0, 1)[0];     // Get the first name only
+
+    return genderMatch(firstName, maleNames, femaleNames)
 
     // Helper functions
-    function genderMatch(nameToGender:string, maleNames:NameData[], femaleNames:NameData[]):NameData {
-        var maleMatch = lookUpMatch(nameToGender, maleNames)
-        var femaleMatch = lookUpMatch(nameToGender, femaleNames)
-        if (!maleMatch && !femaleMatch) return nullGender // If cannot find, return null dataset
+    function genderMatch(firstName:string, maleNames:NameData[], femaleNames:NameData[]):NameData {
+        var maleMatch = lookUpMatch(firstName, maleNames)
+        var femaleMatch = lookUpMatch(firstName, femaleNames)
+        if (!maleMatch && !femaleMatch) return nullGender       // If cannot find, return null dataset
         if (!maleMatch) return formatWinner(femaleMatch, null)
         if (!femaleMatch) return formatWinner(maleMatch, null)
         var winnerLoser = determineWinner(maleMatch, femaleMatch)
         return formatWinner(winnerLoser.winner, winnerLoser.loser)
     }
 
-    function lookUpMatch(nameToGender:string, names:NameData[]):NameData {
+    function lookUpMatch(firstName:string, names:NameData[]):NameData {
         return _.find(names, function(name) {
-            return name.name.toLowerCase() == nameToGender.toLowerCase()
+            return name.name.toLowerCase() == firstName.toLowerCase()
         })
     }
 
@@ -43,11 +43,12 @@ export function guess(nameToGender:string):NameData {
     }
 
     function formatWinner(winner:NameData, loser:NameData):NameData {
-        winner = _.clone(winner)
-        loser = _.clone(loser)
-        if (!loser) winner.confidence = 0.999 // Because it feels weird to return a confidence of 100% :)
-        else winner.confidence = Math.round(Number(winner.births) / (Number(winner.births) + Number(loser.births))*10000)/10000
-        delete winner.births            
-        return winner
+        // Clone winner/loser to prevent bug when you request the same name twice in a row
+        var winnerC = _.clone(winner)
+        var loserC = _.clone(loser)
+        if (!loserC) winnerC.confidence = 0.999     // Because it feels weird to return a confidence of 100% :)
+        else winnerC.confidence = Math.round(Number(winnerC.births) / (Number(winnerC.births) + Number(loserC.births))*10000)/10000
+        delete winnerC.births            
+        return winnerC
     }
 }

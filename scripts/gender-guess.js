@@ -6,20 +6,20 @@ var females = require('../names/final_names/finalFemaleNames');
 var males = require('../names/final_names/finalMaleNames');
 
 function guess(nameToGender) {
-    var femaleNames = females.names;
-    var maleNames = males.names;
-
-    var nullGender = { name: null, gender: null, confidence: null };
-
     if (!nameToGender)
         return nullGender;
 
-    return genderMatch(nameToGender, maleNames, femaleNames);
+    var femaleNames = females.names;
+    var maleNames = males.names;
+    var nullGender = { name: null, gender: null, confidence: null };
+    var firstName = nameToGender.split(' ').slice(0, 1)[0];
+
+    return genderMatch(firstName, maleNames, femaleNames);
 
     // Helper functions
-    function genderMatch(nameToGender, maleNames, femaleNames) {
-        var maleMatch = lookUpMatch(nameToGender, maleNames);
-        var femaleMatch = lookUpMatch(nameToGender, femaleNames);
+    function genderMatch(firstName, maleNames, femaleNames) {
+        var maleMatch = lookUpMatch(firstName, maleNames);
+        var femaleMatch = lookUpMatch(firstName, femaleNames);
         if (!maleMatch && !femaleMatch)
             return nullGender;
         if (!maleMatch)
@@ -30,9 +30,9 @@ function guess(nameToGender) {
         return formatWinner(winnerLoser.winner, winnerLoser.loser);
     }
 
-    function lookUpMatch(nameToGender, names) {
+    function lookUpMatch(firstName, names) {
         return _.find(names, function (name) {
-            return name.name.toLowerCase() == nameToGender.toLowerCase();
+            return name.name.toLowerCase() == firstName.toLowerCase();
         });
     }
 
@@ -45,14 +45,15 @@ function guess(nameToGender) {
     }
 
     function formatWinner(winner, loser) {
-        winner = _.clone(winner);
-        loser = _.clone(loser);
-        if (!loser)
-            winner.confidence = 0.999;
+        // Clone winner/loser to prevent bug when you request the same name twice in a row
+        var winnerC = _.clone(winner);
+        var loserC = _.clone(loser);
+        if (!loserC)
+            winnerC.confidence = 0.999;
         else
-            winner.confidence = Math.round(Number(winner.births) / (Number(winner.births) + Number(loser.births)) * 10000) / 10000;
-        delete winner.births;
-        return winner;
+            winnerC.confidence = Math.round(Number(winnerC.births) / (Number(winnerC.births) + Number(loserC.births)) * 10000) / 10000;
+        delete winnerC.births;
+        return winnerC;
     }
 }
 exports.guess = guess;
