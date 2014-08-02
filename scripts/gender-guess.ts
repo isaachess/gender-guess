@@ -13,7 +13,7 @@ export function guess(nameToGender:string):NameData {
     var femaleNames:NameData[] = females.names
     var maleNames:NameData[] = males.names
     var nullGender:NameData = {name: null, gender: null, confidence: null}  
-    var firstName = nameToGender.split(' ').slice(0, 1)[0];     // Get the first name only
+    var firstName = parseFirstName(nameToGender)     // Get the first name only
 
     return genderMatch(firstName, maleNames, femaleNames)
 
@@ -59,5 +59,9 @@ export function guess(nameToGender:string):NameData {
         else winnerC.confidence = Math.round(Number(winnerC.births) / (Number(winnerC.births) + Number(loserC.births))*10000)/10000
         delete winnerC.births            
         return winnerC
+    }
+
+    function parseFirstName(name:string):string {
+        return name.split(' ').slice(0, 1)[0]
     }
 }

@@ -12,7 +12,7 @@ function guess(nameToGender) {
     var femaleNames = females.names;
     var maleNames = males.names;
     var nullGender = { name: null, gender: null, confidence: null };
-    var firstName = nameToGender.split(' ').slice(0, 1)[0];
+    var firstName = parseFirstName(nameToGender);
 
     return genderMatch(firstName, maleNames, femaleNames);
 
@@ -62,6 +62,10 @@ function guess(nameToGender) {
             winnerC.confidence = Math.round(Number(winnerC.births) / (Number(winnerC.births) + Number(loserC.births)) * 10000) / 10000;
         delete winnerC.births;
         return winnerC;
+    }
+
+    function parseFirstName(name) {
+        return name.split(' ').slice(0, 1)[0];
     }
 }
 exports.guess = guess;
