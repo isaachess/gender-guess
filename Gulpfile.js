@@ -9,7 +9,7 @@ var Q = require('q')
 gulp.task('concat-names', function() {
     gulp.src(['./names/*.txt'])
         .pipe(concat('combined.csv'))
-        .pipe(gulp.dest('./names/'))
+        .pipe(gulp.dest('./names/years_used/'))
 })
 
 gulp.task('toJsonFemale', function() {
