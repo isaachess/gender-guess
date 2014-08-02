@@ -29,7 +29,7 @@ gulp.task('build', function() {
         emitError: false,
         module: 'commonjs',
     }
-    gulp.src(['./*.ts', './names/final_names/*.ts'])
+    gulp.src(['./*.ts', './scripts/*.ts', './names/final_names/*.ts'])
     .pipe(typescript(typescriptOptions))
     .pipe(gulp.dest('./'))
 })

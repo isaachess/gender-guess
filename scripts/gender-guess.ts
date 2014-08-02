@@ -1,13 +1,12 @@
-/// <reference path="./types/lodash/lodash.d.ts" />
-/// <reference path="./types/node/node.d.ts" />
-/// <reference path="./types/types.ts" />
+/// <reference path="../types/lodash/lodash.d.ts" />
+/// <reference path="../types/node/node.d.ts" />
+/// <reference path="../types/types.ts" />
 
 import _ = require('lodash')
-import females = require('./names/final_names/finalFemaleNames')
-import males = require('./names/final_names/finalMaleNames')
+import females = require('../names/final_names/finalFemaleNames')
+import males = require('../names/final_names/finalMaleNames')
 
 export function guess(nameToGender:string):NameData {
-    console.log('nameToGender',nameToGender)
 
     var femaleNames:NameData[] = females.names
     var maleNames:NameData[] = males.names
@@ -16,11 +15,12 @@ export function guess(nameToGender:string):NameData {
 
     if (!nameToGender) return nullGender
 
+    return genderMatch(nameToGender, maleNames, femaleNames)
+
+    // Helper functions
     function genderMatch(nameToGender:string, maleNames:NameData[], femaleNames:NameData[]):NameData {
         var maleMatch = lookUpMatch(nameToGender, maleNames)
         var femaleMatch = lookUpMatch(nameToGender, femaleNames)
-        console.log('maleMatch',maleMatch)
-        console.log('femaleMatch',femaleMatch)
         if (!maleMatch && !femaleMatch) return nullGender // If cannot find, return null dataset
         if (!maleMatch) return formatWinner(femaleMatch, null)
         if (!femaleMatch) return formatWinner(maleMatch, null)
@@ -50,6 +50,4 @@ export function guess(nameToGender:string):NameData {
         delete winner.births            
         return winner
     }
-
-    return genderMatch(nameToGender, maleNames, femaleNames)
 }
