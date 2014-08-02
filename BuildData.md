@@ -12,6 +12,7 @@ To concat the files, follow this process:
 
 * Sort the years you *want* to include into the `years_used/` directory. Put all other files in the `years_unused/` directory.
 * Run `gulp concat-names` to generate a file `names/years_used/combined.csv` which will include ALL the names we are using in a single file.
+* Add a single line at the top of `combined.csv`: `name, gender, births`. This is the header line that R will use to work with the data in the next step.
 
 ## 2. Boot up R to work with the huge dataset
 
