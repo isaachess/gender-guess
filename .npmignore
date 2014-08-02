@@ -1,0 +1,5 @@
+node_modules
+.DS_Store
+names/years_unused
+names/years_used
+names/r
