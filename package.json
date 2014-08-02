@@ -2,6 +2,11 @@
   "name": "gender-guess",
   "version": "1.0.3",
   "description": "Guess the gender of a name based on all US Social Security data from 1930 - 2013",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/isaachess/gender-guess"
+  },
+  "keywords": ["gender","sex","social security","guess"],
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
