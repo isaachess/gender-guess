@@ -18,15 +18,22 @@ function guess(nameToGender) {
 
     // Helper functions
     function genderMatch(firstName, maleNames, femaleNames) {
+        // Get male and female matches for this name
         var maleMatch = lookUpMatch(firstName, maleNames);
         var femaleMatch = lookUpMatch(firstName, femaleNames);
+
+        // Handle null/undefined
         if (!maleMatch && !femaleMatch)
             return nullGender;
         if (!maleMatch)
             return formatWinner(femaleMatch, null);
         if (!femaleMatch)
             return formatWinner(maleMatch, null);
+
+        // Determine the WINNER WINNER WINNER!
         var winnerLoser = determineWinner(maleMatch, femaleMatch);
+
+        // Return formatted result
         return formatWinner(winnerLoser.winner, winnerLoser.loser);
     }
 
@@ -37,6 +44,7 @@ function guess(nameToGender) {
     }
 
     function determineWinner(match1, match2) {
+        // Winner is simply determined by which gender has more births for that name
         var winnerLoser = {
             winner: (Number(match1.births) > Number(match2.births)) ? match1 : match2,
             loser: (Number(match1.births) > Number(match2.births)) ? match2 : match1

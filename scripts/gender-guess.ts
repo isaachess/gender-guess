@@ -19,12 +19,20 @@ export function guess(nameToGender:string):NameData {
 
     // Helper functions
     function genderMatch(firstName:string, maleNames:NameData[], femaleNames:NameData[]):NameData {
+
+        // Get male and female matches for this name
         var maleMatch = lookUpMatch(firstName, maleNames)
         var femaleMatch = lookUpMatch(firstName, femaleNames)
-        if (!maleMatch && !femaleMatch) return nullGender       // If cannot find, return null dataset
+
+        // Handle null/undefined
+        if (!maleMatch && !femaleMatch) return nullGender
         if (!maleMatch) return formatWinner(femaleMatch, null)
         if (!femaleMatch) return formatWinner(maleMatch, null)
+
+        // Determine the WINNER WINNER WINNER!
         var winnerLoser = determineWinner(maleMatch, femaleMatch)
+
+        // Return formatted result
         return formatWinner(winnerLoser.winner, winnerLoser.loser)
     }
 
@@ -35,6 +43,7 @@ export function guess(nameToGender:string):NameData {
     }
 
     function determineWinner(match1:NameData, match2:NameData):WinnerLoser {
+        // Winner is simply determined by which gender has more births for that name
         var winnerLoser:WinnerLoser = {
             winner: (Number(match1.births) > Number(match2.births)) ? match1 : match2,
             loser: (Number(match1.births) > Number(match2.births)) ? match2 : match1,
