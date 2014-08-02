@@ -57,7 +57,7 @@ function guess(nameToGender) {
         var winnerC = _.clone(winner);
         var loserC = _.clone(loser);
         if (!loserC)
-            winnerC.confidence = 0.999;
+            winnerC.confidence = 0.9999;
         else
             winnerC.confidence = Math.round(Number(winnerC.births) / (Number(winnerC.births) + Number(loserC.births)) * 10000) / 10000;
         delete winnerC.births;

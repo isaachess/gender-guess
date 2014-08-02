@@ -14,6 +14,13 @@ To concat the files, follow this process:
 * Run `gulp concat-names` to generate a file `names/years_used/combined.csv` which will include ALL the names we are using in a single file.
 * Add a single line at the top of `combined.csv`: `name, gender, births`. This is the header line that R will use to work with the data in the next step.
 
+The final file should look like:
+
+    name, gender, births
+    Mary,F,64131
+    Betty,F,38238
+    ... (etc.)
+
 ## 2. Boot up R to work with the huge dataset
 
 We now have a humongous csv file, so we'll use a special tool for this: R. (If you're unfamiliar with R, [see here](http://www.r-project.org). Basically it's an awesome free statistical tool.)
