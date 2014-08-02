@@ -1,13 +1,13 @@
 {
   "name": "gender-guess",
-  "version": "0.0.0",
-  "description": "NPM package to guess the gender of a person when given first name or full name",
+  "version": "1.0.3",
+  "description": "Guess the gender of a name based on all US Social Security data from 1930 - 2013",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Isaac Hess",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "lodash": "^2.4.1"
   },

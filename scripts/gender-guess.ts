@@ -55,7 +55,7 @@ export function guess(nameToGender:string):NameData {
         // Clone winner/loser to prevent bug when you request the same name twice in a row
         var winnerC = _.clone(winner)
         var loserC = _.clone(loser)
-        if (!loserC) winnerC.confidence = 0.999     // Because it feels weird to return a confidence of 100% :)
+        if (!loserC) winnerC.confidence = 0.9999     // Because it feels weird to return a confidence of 100% :)
         else winnerC.confidence = Math.round(Number(winnerC.births) / (Number(winnerC.births) + Number(loserC.births))*10000)/10000
         delete winnerC.births            
         return winnerC
