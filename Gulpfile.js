@@ -7,7 +7,7 @@ var fs = require('fs')
 var Q = require('q')
 
 gulp.task('concat-names', function() {
-    gulp.src(['./names/*.txt'])
+    gulp.src(['./names/years_used/*.txt'])
         .pipe(concat('combined.csv'))
         .pipe(gulp.dest('./names/years_used/'))
 })
